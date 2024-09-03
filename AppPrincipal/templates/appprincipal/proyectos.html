@@ -34,6 +34,7 @@
                             {% for proyecto in proyectos %}
                                 {%if proyectos%}
                                     <li>Nombre: {{proyecto.titulo}}</li>
+                                    <img class="img-fluid" src="{{request.proyecto.imagen.imagen.url}}" alt="">
                                 {%else%}
                                     <p>No hay proyectos</p>
                                     {%endif%}

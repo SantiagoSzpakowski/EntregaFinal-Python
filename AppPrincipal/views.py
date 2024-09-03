@@ -8,6 +8,9 @@ class ProyectoListView(ListView):
     #model: Proyecto --Esto lo agrego despues de hacer el create modif y delete, al agregar esto borro el de arriba
     context_object_name = "proyectos"
     template_name = "appprincipal/proyectos.html"
+    
+
+#En creacion o modificacion de Proyecto agregar en el html min 27 zoom de imagen avatar
 
 
 
@@ -34,8 +37,3 @@ def inicio(req):
 def sobremi(req):
     return render(req,'appprincipal/sobremi.html')
 
-def usuarios(req):
-    return render(req,'appprincipal/usuarios.html')
-
-def registroUsuario(req):
-    return render(req,'appprincipal/registro.html')

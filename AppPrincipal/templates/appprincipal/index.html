@@ -32,6 +32,15 @@
                             <li class="nav-item"><a class="nav-link" href="{%url 'sobremi'%}">Sobre Mi</a></li>
                             <li class="nav-item"><a class="nav-link" href="{%url 'proyectos'%}">Proyectos</a></li>
                             <li class="nav-item"><a class="nav-link" href="{%url 'usuarios'%}">Usuarios</a></li>
+                            
+                            {#Dropdown para usuario#}
+                            {% if request.usuario.is_autenticated %}
+                            <div class="dropdawn">
+                                
+                            </div>
+                            {%else%}
+
+                            {%endif%}
                         </ul>
                     </div>
                 </div>
