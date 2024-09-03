@@ -31,16 +31,31 @@
                             <li class="nav-item"><a class="nav-link" href="{%url 'inicio'%}">Inicio</a></li>
                             <li class="nav-item"><a class="nav-link" href="{%url 'sobremi'%}">Sobre Mi</a></li>
                             <li class="nav-item"><a class="nav-link" href="{%url 'proyectos'%}">Proyectos</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{%url 'usuarios'%}">Usuarios</a></li>
                             
-                            {#Dropdown para usuario#}
-                            {% if request.usuario.is_autenticated %}
-                            <div class="dropdawn">
-                                
+                            {# DROPDOWN PARA LA CUENTA DE USUARIO #}
+                            {% if not request.user.is_authenticated %}
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ request.user.username }}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="">Editar cuenta</a></li>
+                                    <li><a class="dropdown-item" href="">Cerrar sesión</a></li>
+                                </ul>
                             </div>
-                            {%else%}
+                        
+                            {% else %}
 
-                            {%endif%}
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Cuenta
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="{%url 'usuarios'%}">Ingreso / Registro</a></li>
+                                    
+                                </ul>
+                            </div>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>

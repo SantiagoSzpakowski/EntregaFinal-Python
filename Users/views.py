@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
+from Users.forms import UserRegisterForm
 #from users.forms import UserEditForm, UserRegisterForm
 # Create your views here.
 
@@ -9,7 +10,21 @@ def usuarios(req):
     return render(req,'users/usuarios.html')
 
 def registroUsuario(req):
-    return render(req,'users/registro.html')
+    msg_register = ""
+    if req.method == 'POST':
+        form = UserRegisterForm(req.POST)
+        print(f"Request method: {form}")
+        if form.is_valid():
+            user = form.save()
+            login(req, user)
+            return redirect("inicio")
+        else:
+            msg_register = "Error en los datos ingresados"
+            msg_register += f" | {form.errors}"
+    
+    form = UserRegisterForm()
+    return render(req,"users/registro.html" ,  {"form":form})
+
 
 
 # Create your views here.
