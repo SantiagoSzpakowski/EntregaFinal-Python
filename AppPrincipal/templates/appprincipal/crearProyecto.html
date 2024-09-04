@@ -23,7 +23,7 @@
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-8 col-xl-6">
                         <p class="fs-5 fw-bold">{{ msg_register }}</p>
-                        <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="POST" action="{% url 'crearProyecto' %}">
+                        <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="POST" action="{% url 'crearProyecto' %}" enctype="multipart/form-data">
                             {% csrf_token %}
                             <!-- Titulo input-->
                             <div class="form-floating mb-3">
@@ -43,6 +43,14 @@
                                 {{ form.fecha.label_tag }}
                                 {{ form.fecha.errors }}
                             </div>
+                            <!-- Imagen input-->
+                            <div class="form-floating mb-3">
+                                <div>
+                                    {{ form.imagen.label_tag }}
+                                    {{ form.imagen }}
+                                    {{ form.imagen.errors }}
+                                </div>
+                            </div>
                             <!-- Descripción input-->
                             <div class="form-floating mb-3">
                                 {{ form.descripcion }} 
@@ -60,3 +68,4 @@
     {% endblock %}
 </body>
 </html>
+
