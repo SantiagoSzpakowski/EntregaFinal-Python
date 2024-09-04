@@ -11732,3 +11732,7 @@ html {
     left: -2vw;
   }
 }
+
+.descripcion-custom {
+  height: 10rem;
+}

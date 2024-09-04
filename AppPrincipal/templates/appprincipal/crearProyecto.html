@@ -1,0 +1,62 @@
+{% extends "appprincipal/index.html" %}
+{% load static %}
+{% load form_filters %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body class="d-flex flex-column">
+    {% block contenidoQueCambia %}
+    <section class="py-5">
+        <div class="container px-5">
+            <!-- Contact form-->
+            <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+                <div class="text-center mb-5">
+                    <div class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div>
+                    <h1 class="fw-bolder">Crear Nuevo Proyecto</h1>
+                    <p class="lead fw-normal text-muted mb-0">Let's work together!</p>
+                </div>
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-8 col-xl-6">
+                        <p class="fs-5 fw-bold">{{ msg_register }}</p>
+                        <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="POST" action="{% url 'crearProyecto' %}">
+                            {% csrf_token %}
+                            <!-- Titulo input-->
+                            <div class="form-floating mb-3">
+                                {{ form.titulo|add_class:"form-control" }}
+                                {{ form.titulo.label_tag }}
+                                {{ form.titulo.errors }}
+                            </div>
+                            <!-- Subtitulo input-->
+                            <div class="form-floating mb-3">
+                                {{ form.subtitulo|add_class:"form-control" }}
+                                {{ form.subtitulo.label_tag }}
+                                {{ form.subtitulo.errors }}
+                            </div>
+                            <!-- Fecha input-->
+                            <div class="form-floating mb-3">
+                                {{ form.fecha|add_class:"form-control" }}
+                                {{ form.fecha.label_tag }}
+                                {{ form.fecha.errors }}
+                            </div>
+                            <!-- Descripción input-->
+                            <div class="form-floating mb-3">
+                                {{ form.descripcion }} 
+                                {{ form.descripcion.label_tag }}
+                                {{ form.descripcion.errors }}
+                            </div>
+                            <!-- Submit Button-->
+                            <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Confirmar</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+</body>
+</html>
