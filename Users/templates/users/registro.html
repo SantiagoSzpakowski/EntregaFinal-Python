@@ -22,15 +22,10 @@
                 </div>
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-8 col-xl-6">
+                        <p class="fs-5 fw-bold">{{ msg_register }}</p>
                         <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="POST" action="{% url 'registro' %}">
                             {% csrf_token %}
-                            <!-- UserName input
-                            <div class="form-floating mb-3">
-                                <input class="form-control" id="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />
-                                <label for="Username">Nombre de Usuario</label>
-                                <div class="invalid-feedback" data-sb-feedback="name:required">Falta Nombrevde Usuario</div>
-                            </div>
-                            -->
+                            <!-- Username input-->
                             <div class="form-floating mb-3">
                                 {{ form.username|add_class:"form-control" }}
                                 {{ form.username.label_tag }}

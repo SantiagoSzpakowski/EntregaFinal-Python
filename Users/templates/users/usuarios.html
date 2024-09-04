@@ -1,5 +1,6 @@
 {% extends "appprincipal/index.html" %}
 {% load static %}
+{% load form_filters %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,18 +24,19 @@
                         </div>
                         <div class="row gx-5 justify-content-center">
                             <div class="col-lg-8 col-xl-6">
-                                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-                                    <!-- Name input-->
+                                <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="POST" action="{% url 'usuarios' %}">
+                                    {% csrf_token %}
+                                    <!-- Username input-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />
-                                        <label for="name">Nombre de usuario</label>
-                                        <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                        {{ form.username|add_class:"form-control" }}
+                                        {{ form.username.label_tag }}
+                                        {{ form.username.errors }}
                                     </div>
-                                    <!-- Pass input-->
+                                    <!-- Password input-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="name" type="password" placeholder="Enter your password..." data-sb-validations="required" />
-                                        <label for="name">Contraseña</label>
-                                        <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                        {{ form.password|add_class:"form-control" }}
+                                        {{ form.password.label_tag }}
+                                        {{ form.password.errors }}
                                     </div>
                                     <!-- Submit success message-->
                                     <!---->
