@@ -8,6 +8,7 @@ urlpatterns = [
     path('inicio/', views.inicio, name='inicio'), 
     path('sobremi/', views.sobremi, name='sobremi'),  
     path('proyectos/', views.ProyectoListView.as_view(), name='proyectos'),
-    path('nuevo_proyecto/', views.ProyectoCreateView.as_view(), name='crearProyecto'), 
+    path('nuevo_proyecto/', views.ProyectoCreateView.as_view(), name='crearProyecto'),
+    path('subir_imagen/', views.ImagenProyectoCreateView.as_view(), name='subirImagen'), 
     path('usuarios/', include('Users.urls')),    
-] #+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

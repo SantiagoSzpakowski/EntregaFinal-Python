@@ -1,6 +1,6 @@
 {% extends "appprincipal/index.html" %}
 {% load static %}
-{% load form_filters %}
+{% load form_filters1 %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,14 +42,6 @@
                                 {{ form.fecha|add_class:"form-control" }}
                                 {{ form.fecha.label_tag }}
                                 {{ form.fecha.errors }}
-                            </div>
-                            <!-- Imagen input-->
-                            <div class="form-floating mb-3">
-                                <div>
-                                    {{ form.imagen.label_tag }}
-                                    {{ form.imagen }}
-                                    {{ form.imagen.errors }}
-                                </div>
                             </div>
                             <!-- Descripción input-->
                             <div class="form-floating mb-3">
