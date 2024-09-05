@@ -17,7 +17,7 @@ class ProyectoForm(forms.ModelForm):
         widget=forms.ClearableFileInput(attrs={'class': 'form-control', 'type': 'file'}))
     class Meta:
         model = Proyecto
-        fields = ['id','titulo', 'subtitulo', 'fecha','imagen', 'descripcion']
+        fields = ['titulo', 'subtitulo', 'fecha','imagen', 'descripcion']
         widgets = {
             'descripcion': forms.Textarea(attrs={
             'class': 'form-control',

@@ -10,8 +10,8 @@ urlpatterns = [
     path('proyectos/', views.ProyectoListView.as_view(), name='proyectos'),
     path('page/<int:id>/', views.ProyectoSeleccionadoDetailView.as_view(), name='detalleProyecto'), 
     path('nuevo_proyecto/', views.ProyectoCreateView.as_view(), name='crearProyecto'),
-    path('subir_imagen/', views.ImagenProyectoCreateView.as_view(), name='subirImagen'), 
-    path('modificar_imagen/', views.ImagenProyectoCreateView.as_view(), name='modificarImagen'), 
+    path('subir_imagen/<int:id>/', views.ImagenProyectoCreateView.as_view(), name='subirImagen'), 
+    path('modificar_imagen/<int:id>/<int:proyecto_id>', views.ImagenProyectoUpdateView.as_view(), name='modificarImagen'), 
     path('modificar_proyecto/<int:id>/', views.ProyectoUpdateView.as_view(), name='modificarProyecto'), 
 
 

@@ -30,12 +30,22 @@
 
                                         <a class="btn btn-outline-dark btn-m px-5 py-3 fs-6 fw-bolder"
                                             style="width: 23.5rem;" href="{%url 'proyectos'%}">Volver</a>
-                                        
+
+                                        {% if user.is_staff %}
                                         <a class="btn btn-outline-dark btn-m px-5 py-3 fs-6 fw-bolder"
-                                            style="width: 23.5rem;" href="{%url 'modificarProyecto' proyecto.id%}">Modificar</a>
-                                        
+                                            style="width: 23.5rem;"
+                                            href="{%url 'modificarProyecto' proyecto.id%}">Modificar</a>
+                                        {% if proyecto.imagen %}
+                                        <a class="btn btn-outline-dark btn-m px-5 py-3 fs-6 fw-bolder"
+                                            style="width: 23.5rem;"
+                                            href="{% url 'modificarImagen' proyecto.imagen.id proyecto.id %}">Modificar Imagen</a>
+                                        {% else %}
+                                        <a class="btn btn-outline-dark btn-m px-5 py-3 fs-6 fw-bolder"
+                                            style="width: 23.5rem;" href="{% url 'subirImagen' proyecto.id %}">Subir Imagen</a>
+                                        {% endif %}
                                         <a class="btn btn-outline-dark btn-m px-5 py-3 fs-6 fw-bolder"
                                             style="width: 23.5rem;" href="{%url 'proyectos'%}">Borrar</a>
+                                        {% endif %}
                                     </p>
                                 </div>
                                 <img class="img-fluid" src="{{proyecto.imagen.imagen.url}}" alt="">
