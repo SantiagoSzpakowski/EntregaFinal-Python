@@ -1,0 +1,51 @@
+{% extends "appprincipal/index.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Modern Business - Start Bootstrap Template</title>
+</head>
+
+<body class="d-flex flex-column h-100 bg-light">
+    {% block contenidoQueCambia %}
+    <section class="py-5">
+        <div class="container px-5 mb-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-11 col-xl-9 col-xxl-8">
+                    {%if proyecto%}
+                    <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
+                        <div class="card-body p-0">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="p-5">
+                                    <h2 class="fw-bolder">{{proyecto.titulo}}</h2>
+                                    <h3>{{proyecto.subtitulo}}</h3>
+                                    <p>
+                                        {{proyecto.autor}}<br>
+                                        {{proyecto.fecha}}<br><br>
+                                        {{proyecto.descripcion}}<br><br>
+
+                                        <a class="btn btn-outline-dark btn-m px-5 py-3 fs-6 fw-bolder"
+                                            style="width: 23.5rem;" href="{%url 'proyectos'%}">Volver</a>
+
+                                    </p>
+                                </div>
+                                <img class="img-fluid" src="{{proyecto.imagen.imagen.url}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    {%else%}
+                    <p>No hay proyectos</p>
+                    {%endif%}
+
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+</body>
+
+</html>

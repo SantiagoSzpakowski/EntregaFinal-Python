@@ -14,7 +14,22 @@ class ProyectoListView(ListView):
     context_object_name = "proyectos"
     template_name = "appprincipal/proyectos.html"
 
+class ProyectoSeleccionadoListView(ListView):
+    model = Proyecto
+    template_name = 'appprincipal/page.html'  # Asegúrate de que esta ruta sea correcta
+    context_object_name = 'proyecto'  # El nombre del contexto que se pasa a la plantilla
 
+    def get_queryset(self):
+        proyecto_id = self.kwargs['id']
+        return Proyecto.objects.filter(id=proyecto_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Puedes agregar más datos al contexto si es necesario
+        # Por ejemplo, obtener el proyecto específico
+        proyecto_id = self.kwargs['id']
+        context['proyecto'] = Proyecto.objects.get(id=proyecto_id)
+        return context
 #En creacion o modificacion de Proyecto agregar en el html min 27 zoom de imagen avatar
 
 class ProyectoCreateView(LoginRequiredMixin, CreateView):
@@ -47,12 +62,13 @@ class ImagenProyectoCreateView(View):
 
         proyecto = get_object_or_404(Proyecto, id=proyecto_id)
         imagen_form = ImagenProyectoForm(request.POST, request.FILES)
-
-        if imagen_form.is_valid():
-            imagen_proyecto = imagen_form.save()
-            proyecto.imagen = imagen_proyecto
-            proyecto.save()
-            return redirect('proyectos')  # Redirige a la lista de proyectos después de guardar
+        
+        if request.FILES.get('imagen'):
+            if imagen_form.is_valid():
+                imagen_proyecto = imagen_form.save()
+                proyecto.imagen = imagen_proyecto
+                proyecto.save()
+                return redirect('proyectos')  # Redirige a la lista de proyectos después de guardar
 
         return render(request, 'appprincipal/subir_imagen.html', {'imagen_form': imagen_form})
     
@@ -66,9 +82,8 @@ class ImagenProyectoCreateView(View):
 def inicio(req):
     return render(req,'appprincipal/index.html')
 
-def nuevoproyecto(req):
-    return render(req,'appprincipal/crearProyecto.html')
-
 def sobremi(req):
     return render(req,'appprincipal/sobremi.html')
 
+def detalleProyecto(req):
+    return render(req,'appprincipal/page.html')
