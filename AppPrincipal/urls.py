@@ -8,8 +8,12 @@ urlpatterns = [
     path('inicio/', views.inicio, name='inicio'), 
     path('sobremi/', views.sobremi, name='sobremi'),  
     path('proyectos/', views.ProyectoListView.as_view(), name='proyectos'),
-    path('page/<int:id>/', views.ProyectoSeleccionadoListView.as_view(), name='detalleProyecto'), 
+    path('page/<int:id>/', views.ProyectoSeleccionadoDetailView.as_view(), name='detalleProyecto'), 
     path('nuevo_proyecto/', views.ProyectoCreateView.as_view(), name='crearProyecto'),
     path('subir_imagen/', views.ImagenProyectoCreateView.as_view(), name='subirImagen'), 
+    path('modificar_imagen/', views.ImagenProyectoCreateView.as_view(), name='modificarImagen'), 
+    path('modificar_proyecto/<int:id>/', views.ProyectoUpdateView.as_view(), name='modificarProyecto'), 
+
+
     path('usuarios/', include('Users.urls')),    
 ]
