@@ -24,13 +24,13 @@
                             <div class="form-floating mb-3">
                                 {% csrf_token %}
                                 <div>
-                                    {{ form.imagen|add_class:"form-control" }}
+                                    {{ form.imagen }}
                                     {{ form.imagen.errors }}
                                 </div>
                             </div>
                             <div class="d-grid">
                                 <button class="btn btn-primary btn-lg" type="submit">Guardar</button>
-                                <a class="btn btn-primary btn-lg mt-2" href="{%url 'proyectos'%}">Volver</a>
+                                <div class="d-grid"><a href="{% url 'proyectos' %}" class="btn btn-primary btn-lg" id="submitButton" type="submit" style="margin-top: 5px; background-color: #6f42c1; border-color: #6f42c1;">Cancelar</a></div>
                             </div>
                         </form>
                     </div>

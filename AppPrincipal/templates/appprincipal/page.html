@@ -26,25 +26,28 @@
                                     <p>
                                         {{proyecto.autor}}<br>
                                         {{proyecto.fecha}}<br><br>
-                                        {{proyecto.descripcion}}<br><br>
+                                        {{proyecto.descripcion}}<br>
 
                                         <a class="btn btn-outline-dark btn-m px-5 py-3 fs-6 fw-bolder"
-                                            style="width: 23.5rem;" href="{%url 'proyectos'%}">Volver</a>
+                                            style="width: 23.5rem; margin-top: 5px" href="{%url 'proyectos'%}">Volver</a>
 
                                         {% if user.is_staff %}
                                         <a class="btn btn-outline-dark btn-m px-5 py-3 fs-6 fw-bolder"
-                                            style="width: 23.5rem;"
+                                            style="width: 23.5rem; margin-top: 5px"
                                             href="{%url 'modificarProyecto' proyecto.id%}">Modificar</a>
                                         {% if proyecto.imagen %}
                                         <a class="btn btn-outline-dark btn-m px-5 py-3 fs-6 fw-bolder"
-                                            style="width: 23.5rem;"
+                                            style="width: 23.5rem; margin-top: 5px"
                                             href="{% url 'modificarImagen' proyecto.imagen.id proyecto.id %}">Modificar Imagen</a>
+                                        <a class="btn btn-outline-dark btn-m px-5 py-3 fs-6 fw-bolder"
+                                            style="width: 23.5rem; margin-top: 5px"
+                                            href="{% url 'borrarImagen' proyecto.imagen.id proyecto.id %}">Borrar Imagen</a>
                                         {% else %}
                                         <a class="btn btn-outline-dark btn-m px-5 py-3 fs-6 fw-bolder"
-                                            style="width: 23.5rem;" href="{% url 'subirImagen' proyecto.id %}">Subir Imagen</a>
+                                            style="width: 23.5rem; margin-top: 5px" href="{% url 'subirImagen' proyecto.id %}">Subir Imagen</a>
                                         {% endif %}
                                         <a class="btn btn-outline-dark btn-m px-5 py-3 fs-6 fw-bolder"
-                                            style="width: 23.5rem;" href="{%url 'borrarProyecto' proyecto.id%}">Borrar</a>
+                                            style="width: 23.5rem; margin-top: 5px" href="{%url 'borrarProyecto' proyecto.id%}">Borrar</a>
                                         {% endif %}
                                     </p>
                                 </div>

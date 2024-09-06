@@ -35,14 +35,17 @@ class ProyectoCreateView(LoginRequiredMixin, CreateView):
     model = Proyecto
     form_class = ProyectoForm
     template_name = "appprincipal/crearProyecto.html"
-    success_url = reverse_lazy("subirImagen")
 
     def form_valid(self, form):
         form.instance.autor = self.request.user
         response = super().form_valid(form)
         # Guardar el ID del proyecto en la sesión
         self.request.session['proyecto_id'] = self.object.id
-        return response
+        return redirect(reverse_lazy('subirImagen', kwargs={'id': self.object.id}))
+    
+    def get_success_url(self):
+        return reverse_lazy('subirImagen', kwargs={'id': self.object.id})
+
 
 class ProyectoUpdateView(LoginRequiredMixin, UpdateView):
     model = Proyecto
@@ -102,11 +105,22 @@ class ImagenProyectoUpdateView(UpdateView):
         imagen = get_object_or_404(ImagenProyecto, id=imagen_id) 
         return imagen
 
-    def form_valid(self, form):
+    #def form_valid(self, form):
         form.save() 
         proyecto_id = self.kwargs.get('proyecto_id')
 
         return redirect('detalleProyecto', proyecto_id)
+    
+    def form_valid(self, form):
+        # Guarda el objeto y el archivo asociado (si se actualiza)
+        form.save(commit=False)
+        response = super().form_valid(form)
+        return response
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form, proyecto_id=self.kwargs.get('proyecto_id')))
+
+class ImagenDeleteView(LoginRequiredMixin, DeleteView):
+    model = ImagenProyecto
+    success_url = reverse_lazy('proyectos')
+    template_name = 'appprincipal/borrar_imagen.html'
