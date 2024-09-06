@@ -13,6 +13,7 @@ urlpatterns = [
     path('subir_imagen/<int:id>/', views.ImagenProyectoCreateView.as_view(), name='subirImagen'), 
     path('modificar_imagen/<int:id>/<int:proyecto_id>', views.ImagenProyectoUpdateView.as_view(), name='modificarImagen'), 
     path('modificar_proyecto/<int:id>/', views.ProyectoUpdateView.as_view(), name='modificarProyecto'), 
+    path('borrar_proyecto/<int:pk>/', views.ProyectoDeleteView.as_view(), name='borrarProyecto'), 
 
 
     path('usuarios/', include('Users.urls')),    

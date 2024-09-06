@@ -17,9 +17,6 @@ def inicio(req):
 def sobremi(req):
     return render(req,'appprincipal/sobremi.html')
 
-def editar(req):
-    return render(req,'appprincipal/modificarProyecto.html')
-
 class ProyectoListView(ListView):
     queryset = Proyecto.objects.all()  # Definiendo el QuerySet directamente
     #model: Proyecto #Esto lo agrego despues de hacer el create modif y delete, al agregar esto borro el de arriba
@@ -58,6 +55,10 @@ class ProyectoUpdateView(LoginRequiredMixin, UpdateView):
         id = self.object.id
         return reverse_lazy('detalleProyecto', kwargs={'id': id})
 
+class ProyectoDeleteView(LoginRequiredMixin, DeleteView):
+    model = Proyecto
+    success_url = reverse_lazy('proyectos')
+    template_name = 'appprincipal/borrar_proyecto.html'
 
 class ImagenProyectoCreateView(View):
     def get(self, request, *args, **kwargs):
@@ -85,32 +86,27 @@ class ImagenProyectoCreateView(View):
                 return redirect('proyectos') 
 
         return render(request, 'appprincipal/subir_imagen.html', {'imagen_form': imagen_form})
-    
+
 
 
 class ImagenProyectoUpdateView(UpdateView):
-    model = ImagenProyecto  # El modelo que estás actualizando
-    form_class = ImagenProyectoForm  # El formulario que utilizarás
-    template_name = 'appprincipal/modificar_imagen.html'  # La plantilla que se usa para el formulario
+    model = ImagenProyecto 
+    form_class = ImagenProyectoForm 
+    template_name = 'appprincipal/modificar_imagen.html'
     
     context_object_name = 'imagen'
     pk_url_kwarg = 'id'
     
     def get_object(self, queryset=None):
-        # Obtener el id de la imagen desde la URL
-        imagen_id = self.kwargs.get('id')  # 'pk' es el identificador primario de la imagen
-        imagen = get_object_or_404(ImagenProyecto, id=imagen_id)  # Obtén la imagen a través de su id
+        imagen_id = self.kwargs.get('id')  
+        imagen = get_object_or_404(ImagenProyecto, id=imagen_id) 
         return imagen
 
     def form_valid(self, form):
-        form.save()  # Guardamos la imagen actualizada
+        form.save() 
+        proyecto_id = self.kwargs.get('proyecto_id')
 
-        # Obtener el proyecto_id que viene de la URL y devolverlo en la redirección
-        proyecto_id = self.kwargs.get('proyecto_id')  # Capturamos el id del proyecto de la URL
-
-        # Redirigir a una vista que incluya el proyecto_id (puedes ajustar la URL de redirección según tus necesidades)
-        return redirect('detalleProyecto', proyecto_id)#, proyecto_id=proyecto_id)
+        return redirect('detalleProyecto', proyecto_id)
 
     def form_invalid(self, form):
-        # Si el formulario no es válido, volvemos a renderizar la página con el formulario
         return self.render_to_response(self.get_context_data(form=form, proyecto_id=self.kwargs.get('proyecto_id')))

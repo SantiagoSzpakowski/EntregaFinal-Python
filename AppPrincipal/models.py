@@ -13,10 +13,20 @@ class Proyecto (models.Model):
     imagen = models.ForeignKey('ImagenProyecto', on_delete=models.SET_NULL, null=True, blank=True, related_name='proyectos')
     autor = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     
+    def delete(self, *args, **kwargs):
+        if self.imagen:
+            self.imagen.delete()
+        super().delete(*args, **kwargs)
+        
     def __str__(self):
         return f"{self.titulo} - {self.autor}"
 
 class ImagenProyecto(models.Model):
     imagen = models.ImageField(upload_to='imagen', null=True, blank=True)
+    
+    def delete(self, *args, **kwargs):
+        self.imagen.delete(save=False)
+        super().delete(*args, **kwargs)
+
     def __str__(self):
         return f"{self.imagen.name}"
