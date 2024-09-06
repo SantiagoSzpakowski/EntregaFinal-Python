@@ -20,8 +20,8 @@ def registroUsuario(req):
             login(req, user)
             return redirect("inicio")
         else:
-            msg_register = "Error en los datos ingresados"
-            msg_register += f" | {form.errors}"
+            for field, errors in form.errors.items():
+                msg_register += f"Error en {field}: {', '.join(errors)}\n"
     
     form = UserRegisterForm()
     return render(req,"users/registro.html" ,  {"form":form, "msg_register": msg_register})
