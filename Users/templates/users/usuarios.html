@@ -24,6 +24,12 @@
                         </div>
                         <div class="row gx-5 justify-content-center">
                             <div class="col-lg-8 col-xl-6">
+                                <!-- Mostrar mensaje de error si las credenciales son incorrectas -->
+                                {% if msg_login %}
+                                <div class="alert alert-danger text-center" role="alert">
+                                    {{ msg_login }}
+                                </div>
+                                {% endif %}
                                 <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="POST" action="{% url 'usuarios' %}">
                                     {% csrf_token %}
                                     <!-- Username input-->

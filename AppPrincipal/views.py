@@ -18,8 +18,7 @@ def sobremi(req):
     return render(req,'appprincipal/sobremi.html')
 
 class ProyectoListView(ListView):
-    queryset = Proyecto.objects.all()  # Definiendo el QuerySet directamente
-    #model: Proyecto #Esto lo agrego despues de hacer el create modif y delete, al agregar esto borro el de arriba
+    queryset = Proyecto.objects.all()
     context_object_name = "proyectos"
     template_name = "appprincipal/proyectos.html"
 
@@ -28,8 +27,6 @@ class ProyectoSeleccionadoDetailView(DetailView):
     template_name = 'appprincipal/page.html'
     context_object_name = 'proyecto'
     pk_url_kwarg = 'id'
-
-#En creacion o modificacion de Proyecto agregar en el html min 27 zoom de imagen avatar
 
 class ProyectoCreateView(LoginRequiredMixin, CreateView):
     model = Proyecto
@@ -67,7 +64,7 @@ class ImagenProyectoCreateView(View):
     def get(self, request, *args, **kwargs):
         proyecto_id = self.kwargs.get('id')
         if not proyecto_id:
-            return redirect('crearProyecto')  # Redirige si no hay proyecto
+            return redirect('crearProyecto')
 
         proyecto = get_object_or_404(Proyecto, id=proyecto_id)
         imagen_form = ImagenProyectoForm()
@@ -105,12 +102,6 @@ class ImagenProyectoUpdateView(UpdateView):
         imagen = get_object_or_404(ImagenProyecto, id=imagen_id) 
         return imagen
 
-    #def form_valid(self, form):
-        form.save() 
-        proyecto_id = self.kwargs.get('proyecto_id')
-
-        return redirect('detalleProyecto', proyecto_id)
-    
     def form_valid(self, form):
         # Guarda el objeto y el archivo asociado (si se actualiza)
         form.save(commit=False)
