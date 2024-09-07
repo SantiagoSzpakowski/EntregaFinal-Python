@@ -34,13 +34,15 @@
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
                             <li class="nav-item"><a class="nav-link" href="{%url 'inicio'%}">Inicio</a></li>
                             <li class="nav-item"><a class="nav-link" href="{%url 'sobremi'%}">Sobre Mi</a></li>
-                            
+                            <li class="nav-item"><a class="nav-link" href="{%url 'proyectos'%}">Proyectos</a></li>
+
                             {# DROPDOWN PARA LA CUENTA DE USUARIO #}
                             {% if request.user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href="{%url 'proyectos'%}">Proyectos</a></li>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {% if request.user.imagen.imagen.url %}
                                     <img src="{{request.user.imagen.imagen.url}}" alt="" style="height: 25px; width: 25px; border-radius: 50%; margin-right: 10px;">
+                                    {% endif %}
                                     {{ request.user.username }}
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -57,11 +59,10 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item" href="{%url 'usuarios'%}">Ingreso / Registro</a></li>
-                                    
                                 </ul>
                             </div>
                             {% endif %}
-                        </ul>
+                        </ul>   
                     </div>
                 </div>
             </nav>
@@ -80,7 +81,7 @@
                                 <h1 class="display-3 fw-bolder mb-5"><span class="text-gradient d-inline">Posicionarse online y crecer rápidamente</span></h1>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
                                     <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" href="{%url 'sobremi'%}">Sobre Mi</a>
-                                    <!--<a class="btn btn-outline-dark btn-lg px-5 py-3 fs-6 fw-bolder" href="{%url 'usuarios'%}">Iniciar Sesion</a>-->
+                                    <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder" href="{%url 'proyectos'%}">Proyectos</a>
                                 </div>
                             </div>
                         </div>

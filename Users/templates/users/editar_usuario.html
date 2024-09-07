@@ -17,7 +17,9 @@
             <div class="bg-light rounded-4 py-5 px-4 px-md-5">
                 <div class="text-center mb-5">
                     <div class="  mb-3">
+                    {% if request.user.imagen.imagen.url %}
                     <img src="{{request.user.imagen.imagen.url}}" alt="" style="height: 100px; width: 100px; border-radius: 50%; margin-right: 10px;">
+                    {% endif%}
                 </div>
                     <h1 class="fw-bolder">Editar Usuario</h1>
                     <p class="lead fw-normal text-muted mb-0">Let's work together!</p>

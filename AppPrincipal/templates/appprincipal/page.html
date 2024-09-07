@@ -25,8 +25,10 @@
                                     <p>
                                         {{proyecto.autor}}<br>
                                         {{proyecto.fecha}}<br><br>
+                                    </p>
+                                    <p>
                                         {{proyecto.descripcion}}<br>
-
+                                    </p>
                                         <a class="btn btn-outline-dark btn-m px-5 py-3 fs-6 fw-bolder"
                                             style="width: 23.5rem; margin-top: 5px" href="{%url 'proyectos'%}">Volver</a>
 
@@ -48,7 +50,7 @@
                                         <a class="btn btn-outline-dark btn-m px-5 py-3 fs-6 fw-bolder"
                                             style="width: 23.5rem; margin-top: 5px" href="{%url 'borrarProyecto' proyecto.id%}">Borrar</a>
                                         {% endif %}
-                                    </p>
+                                    
                                 </div>
                                 <img class="img-fluid" src="{{proyecto.imagen.imagen.url}}" alt="">
                             </div>

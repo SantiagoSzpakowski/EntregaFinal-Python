@@ -9,30 +9,6 @@ from django.test import Client
 from Users.forms import UserRegisterForm
 from django.contrib.auth.forms import AuthenticationForm
 
-class ProyectoCreateViewTest(TestCase):
-    @classmethod
-    def setUpTestData(cls):
-        cls.usuario = User.objects.create_user(username='usuario_prueba', password='contraseña_prueba')
-
-    def setUp(self):
-        self.client.login(username='usuario_prueba', password='contraseña_prueba')
-
-    def test_create_proyecto(self):
-        # Simula la creación de un proyecto
-        form_data = {
-            'titulo': 'Nuevo Proyecto',
-            'subtitulo': 'Subtitulo',
-            'descripcion': 'Descripción',
-            'fecha': timezone.now().date()
-        }
-        response = self.client.post(reverse('crearProyecto'), data=form_data)
-        self.assertEqual(response.status_code, 302)  # Redirige después de la creación
-        self.assertEqual(Proyecto.objects.count(), 1)
-        nuevo_proyecto = Proyecto.objects.first()
-        self.assertEqual(nuevo_proyecto.titulo, 'Nuevo Proyecto')
-        self.assertEqual(nuevo_proyecto.autor, self.usuario)
-
-
 class RegistroUsuarioTest(TestCase):
 
     def setUp(self):
@@ -79,7 +55,7 @@ class RegistroUsuarioTest(TestCase):
     def test_registro_usuario_metodo_get(self):
         response = self.client.get(self.url)
         
-        # Verifica que la página de registro se ha renderizado
+        # Verifica que la página de registro se renderiza
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/registro.html')
         self.assertIsInstance(response.context['form'], UserRegisterForm)
@@ -101,8 +77,8 @@ class LoginUsuarioTest(TestCase):
         response = self.client.post(reverse('usuarios'), data=form_data)
         
         # Verificar que el login fue exitoso y se redirige correctamente
-        self.assertEqual(response.status_code, 302)  # Redirige después de login
-        self.assertRedirects(response, reverse('inicio'))  # Redirige a la vista 'inicio'
+        self.assertEqual(response.status_code, 302) 
+        self.assertRedirects(response, reverse('inicio'))
 
     def test_login_usuario_incorrecto(self):
         # Simular un inicio de sesión con credenciales incorrectas
@@ -113,8 +89,8 @@ class LoginUsuarioTest(TestCase):
         response = self.client.post(reverse('usuarios'), data=form_data)
         
         # Verificar que la página de login se vuelve a cargar y muestra el mensaje de error
-        self.assertEqual(response.status_code, 200)  # La página de login se recarga
-        self.assertContains(response, "Usuario o contraseña incorrectos")  # Verifica el mensaje de error
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Usuario o contraseña incorrectos")
 
     def test_login_get_request(self):
         # Simular una solicitud GET a la vista de login
@@ -122,4 +98,28 @@ class LoginUsuarioTest(TestCase):
 
         # Verificar que la página de login se carga correctamente
         self.assertEqual(response.status_code, 200)
+
+
+class ProyectoCreateViewTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.usuario = User.objects.create_user(username='usuario_prueba', password='contraseña_prueba')
+
+    def setUp(self):
+        self.client.login(username='usuario_prueba', password='contraseña_prueba')
+
+    def test_create_proyecto(self):
+        # Simula la creación de un proyecto
+        form_data = {
+            'titulo': 'Nuevo Proyecto',
+            'subtitulo': 'Subtitulo',
+            'descripcion': 'Descripción',
+            'fecha': timezone.now().date()
+        }
+        response = self.client.post(reverse('crearProyecto'), data=form_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Proyecto.objects.count(), 1)
+        nuevo_proyecto = Proyecto.objects.first()
+        self.assertEqual(nuevo_proyecto.titulo, 'Nuevo Proyecto')
+        self.assertEqual(nuevo_proyecto.autor, self.usuario)
         self.assertIsInstance(response.context['form'], AuthenticationForm)
