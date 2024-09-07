@@ -1,4 +1,4 @@
-from django.contrib import messages
+from Users.models import Imagen
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
@@ -56,6 +56,14 @@ def editar_usuario(request):
         form = UserEditForm(request.POST, request.FILES, instance=usuario)
         
         if form.is_valid():
+            if form.cleaned_data.get('imagen'):
+                # Si el usuario ya tiene una imagen asociada (existe un objeto Imagen para este usuario)
+                if Imagen.objects.filter(user=usuario).exists():
+                    usuario.imagen.imagen = form.cleaned_data.get('imagen')
+                    usuario.imagen.save()
+                else:
+                    avatar = Imagen(user=usuario, imagen=form.cleaned_data.get('imagen'))
+                    avatar.save()
             form.save()
             return redirect("inicio")
 

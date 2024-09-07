@@ -30,10 +30,11 @@ class UserEditForm(UserChangeForm):
         label="Nombre",
         widget=forms.TextInput(attrs={'placeholder': 'Nombre', 'class': 'form-control'}))
     email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Mail', 'class': 'form-control'}))
+    imagen = forms.ImageField(label="Avatar", required=False)
     
     class Meta:
         model = User                
-        fields = ['first_name','email']  
+        fields = ['first_name','email', 'imagen']  
 
 class UserPasswordForm(PasswordChangeForm):
     old_password = forms.CharField(

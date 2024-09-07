@@ -40,6 +40,7 @@
                             <li class="nav-item"><a class="nav-link" href="{%url 'proyectos'%}">Proyectos</a></li>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="{{request.user.imagen.imagen.url}}" alt="" style="height: 25px; width: 25px; border-radius: 50%; margin-right: 10px;">
                                     {{ request.user.username }}
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
